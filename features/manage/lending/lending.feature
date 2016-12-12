@@ -7,7 +7,7 @@ Feature: Lending
 
   @javascript @browser @personas
   Scenario: Selection during manual interaction when handing over
-    When I open a hand over
+    When I open a hand over with an unassigned item line
     And I manually assign an inventory code to an item
     Then the item is selected and the box is checked
 

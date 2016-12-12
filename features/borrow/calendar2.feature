@@ -28,7 +28,7 @@ Feature: Calendar
     And the start date is equal to the preselected start date
     And the end date is equal to the preselected end date
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Calendar appearance with inventory pools already set
     Given I am listing models
     And I reduce the selected inventory pools

@@ -3,7 +3,7 @@ Feature: List of contracts
   Background:
     Given I am Andi
 
-  @personas @javascript
+  @personas @javascript @flapping
   Scenario: Visible tabs
     When I open the tab "Contracts"
     Then I see the tabs:

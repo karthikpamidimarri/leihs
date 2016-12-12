@@ -7,19 +7,13 @@ jobs:
     description: |
       Run Borrow problematic scenarios under MRI
 
-    priority: -2
+    priority: 0
 
     run_when:
       branch name matches master or borrow:
         type: branch
         include_match: '^.*(master|borrow).*$'
         exclude_match: '^.*(no-ci|hotspot).*$'
-
-    depends_on:
-      borrow_scenarios:
-        type: job
-        job_key: borrow_scenarios
-        states: [passed]
 
     context:
 
@@ -28,7 +22,9 @@ jobs:
         - cider-ci/tasks/borrow_problematic_scenarios.yml
 
       task_defaults:
+        traits:
+          g2016: true
         load: 2
-        max_trials: 10
+        max_trials: 6
         include:
           - cider-ci/task_components/database.yml

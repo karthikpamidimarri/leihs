@@ -7,7 +7,7 @@ jobs:
     description: |
       Run Admin engine scenarios under MRI
 
-    priority: -1
+    priority: 0
 
     run_when:
       branch name matches master or admin:
@@ -18,7 +18,7 @@ jobs:
     context:
 
       task_defaults:
-        max_trials: 3
+        max_trials: 2
         include:
           - cider-ci/task_components/database.yml
 

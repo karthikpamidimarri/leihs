@@ -7,7 +7,7 @@ jobs:
     description: |
       Run Manage scenarios under MRI
 
-    priority: -1
+    priority: 0
 
     run_when:
       branch name matches master or manage:
@@ -18,8 +18,8 @@ jobs:
     context:
 
       task_defaults:
-        load: 2
-        max_trials: 4
+        load: 1.5
+        max_trials: 2
         include:
           - cider-ci/task_components/database.yml
 
