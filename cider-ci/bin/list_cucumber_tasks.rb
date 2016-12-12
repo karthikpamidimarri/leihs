@@ -3,7 +3,7 @@ require 'yaml'
 require 'pry'
 
 DEFAULT_BROWSER = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
-CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
+CI_SCENARIOS_PER_TASK = Integer(ENV['CI_SCENARIOS_PER_TASK'] || 1)
 STRICT_MODE = true
 ENGINES = ['leihs_admin', 'procurement']
 
@@ -47,7 +47,7 @@ ENGINES.each do |engine|
   create_feature_tasks(filepath, engine_feature_files)
 end
 
-EXCLUDE_TAGS = %w(@upcoming @generating_personas @manual @problematic)
+EXCLUDE_TAGS = %w(@upcoming @generating_personas @manual @problematic @v4stable @flapping)
 
 def create_scenario_tasks(filepath, feature_files_paths, test_with, tags: nil, exclude_dir: nil)
   File.open(filepath,'w') do |f|
@@ -110,12 +110,17 @@ create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, exclude_d
 filepath = 'cider-ci/tasks/manage_problematic_scenarios.yml'
 create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, tags: ['@problematic'], exclude_dir: 'borrow')
 
+
 ############################## BORROW ###################################
 
 borrow_feature_files_paths = ['features/borrow/*']
 
 filepath = 'cider-ci/tasks/borrow_scenarios.yml'
 create_scenario_tasks(filepath, borrow_feature_files_paths, :cucumber)
+
+# keep failing CI scenarios in a separate yml files (and job)
+filepath = 'cider-ci/tasks/borrow_flapping_scenarios.yml'
+create_scenario_tasks(filepath, borrow_feature_files_paths, :cucumber, tags: ['@flapping'])
 
 # keep failing CI scenarios in a separate yml files (and job)
 filepath = 'cider-ci/tasks/borrow_problematic_scenarios.yml'
@@ -131,5 +136,8 @@ ENGINES.each do |engine|
   else
     engine_feature_files_paths = ["engines/#{engine}/**/*.feature"]
     create_scenario_tasks(filepath, engine_feature_files_paths, :cucumber)
+
+    filepath = "cider-ci/tasks/#{engine}_v4stable_scenarios.yml"
+    create_scenario_tasks(filepath, engine_feature_files_paths, :cucumber, tags:['@v4stable'])
   end
 end

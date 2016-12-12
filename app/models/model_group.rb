@@ -49,17 +49,21 @@ class ModelGroup < ActiveRecord::Base
   # c = FactoryGirl.create :model_group, name: 'Child', type: 'ModelGroup'
   # ModelGroupLink.create parent: p, child: c
 
-  def self_and_descendant_ids
-    # OPTIMIZE: flatten and unique really needed?
-    ([id] + descendant_ids).flatten.uniq
+  def descendants (found = [])
+    more = Set.new(self.children) + found.map(&:children).flatten
+    more == Set.new(found) ? found : descendants(more).to_a
+  end
+
+  def self_and_descendants
+    descendants + [self]
   end
 
   # NOTE it's now chainable for scopes
   def all_models
     Model
-      .select('DISTINCT models.*')
       .joins(:model_links)
-      .where(model_links: { model_group_id: self_and_descendant_ids })
+      .where(model_links: { model_group_id: self_and_descendants.map(&:id)})
+      .uniq
   end
 
   def image
@@ -68,8 +72,8 @@ class ModelGroup < ActiveRecord::Base
 
   scope :roots, (lambda do
     joins('LEFT JOIN model_group_links AS mgl ' \
-          'ON mgl.descendant_id = model_groups.id')
-      .where('mgl.descendant_id IS NULL')
+          'ON mgl.child_id = model_groups.id')
+      .where('mgl.child_id IS NULL')
   end)
 
   # scope :accessible_roots, lambda do |user_id|

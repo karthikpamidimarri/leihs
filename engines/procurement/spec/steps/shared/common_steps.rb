@@ -83,7 +83,7 @@ module CommonSteps
         budget_period: current_budget_period
       }
       if value['category'] == 'inspected' or not @category.nil?
-        h[:category] = @category || Procurement::Category.detect do |category|
+        h[:category] = @category || Procurement::Category.all.detect do |category|
           not category.inspectable_by?(@current_user)
         end
       end

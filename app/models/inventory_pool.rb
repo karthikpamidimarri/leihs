@@ -49,9 +49,6 @@ class InventoryPool < ActiveRecord::Base
   has_many :item_lines, dependent: :restrict_with_exception
   has_many :visits
 
-  # tmp#2#, :finder_sql => 'SELECT * FROM `groups`
-  # WHERE (`groups`.inventory_pool_id = #{id}
-  # OR `groups`.inventory_pool_id IS NULL)'
   has_many :groups do
     def with_general
       all + [Group::GENERAL_GROUP_ID]
@@ -126,11 +123,11 @@ class InventoryPool < ActiveRecord::Base
         .connection
         .execute('INSERT INTO access_rights ' \
                    '(role, inventory_pool_id, user_id, created_at, updated_at) ' \
-                 "SELECT 'customer', #{id}, users.id, NOW(), NOW() " \
+                 "SELECT 'customer', '#{id}', users.id, NOW(), NOW() " \
                  'FROM users ' \
                  'LEFT JOIN access_rights ' \
                  'ON access_rights.user_id = users.id ' \
-                 "AND access_rights.inventory_pool_id = #{id} " \
+                 "AND access_rights.inventory_pool_id = '#{id}' " \
                  'WHERE access_rights.user_id IS NULL;')
     end
   end

@@ -28,7 +28,7 @@ Feature: Calendar
     And the start date is equal to the preselected start date
     And the end date is equal to the preselected end date
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Calendar appearance with inventory pools already set
     Given I am listing models
     And I reduce the selected inventory pools
@@ -75,7 +75,7 @@ Feature: Calendar
   Scenario: Showing closed days in the calendar
     Given I have opened the booking calendar
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Using the calendar after resetting all filters
     When I add a model to an order
     And I am listing models

@@ -33,13 +33,13 @@ class User < ActiveRecord::Base
       joins(:items)
         .where(items: { retired: nil, is_borrowable: true, parent_id: nil })
         .joins("INNER JOIN (#{Partition.query}) AS pwg " \
-               'ON `models`.`id` = `pwg`.`model_id` ' \
-               'AND `inventory_pools`.`id` = `pwg`.`inventory_pool_id` ' \
-               'AND `pwg`.`quantity` > 0 ' \
-               'AND (`pwg`.`group_id` IN ' \
-                 '(SELECT `group_id` FROM `groups_users` ' \
-                 "WHERE `user_id` = #{proxy_association.owner.id}) " \
-                   'OR `pwg`.`group_id` IS NULL)')
+               'ON models.id = pwg.model_id ' \
+               'AND inventory_pools.id = pwg.inventory_pool_id ' \
+               'AND pwg.quantity > 0 ' \
+               'AND (pwg.group_id IN ' \
+                 '(SELECT group_id FROM groups_users ' \
+                 "WHERE user_id = '#{proxy_association.owner.id}') " \
+                   'OR pwg.group_id IS NULL)')
     end
   end
 
@@ -47,13 +47,13 @@ class User < ActiveRecord::Base
     def with_borrowable_items
       where(items: { retired: nil, is_borrowable: true, parent_id: nil })
       .joins("INNER JOIN (#{Partition.query}) AS pwg " \
-             'ON `models`.`id` = `pwg`.`model_id` ' \
-             'AND `inventory_pools`.`id` = `pwg`.`inventory_pool_id` ' \
-             'AND `pwg`.`quantity` > 0 ' \
-             'AND (`pwg`.`group_id` IN ' \
-               '(SELECT `group_id` FROM `groups_users` ' \
-               "WHERE `user_id` = #{proxy_association.owner.id}) " \
-                 'OR `pwg`.`group_id` IS NULL)')
+             'ON models.id = pwg.model_id ' \
+             'AND inventory_pools.id = pwg.inventory_pool_id ' \
+             'AND pwg.quantity > 0 ' \
+             'AND (pwg.group_id IN ' \
+               '(SELECT group_id FROM groups_users ' \
+               "WHERE user_id = '#{proxy_association.owner.id}') " \
+                 'OR pwg.group_id IS NULL)')
     end
   end
 
@@ -62,10 +62,10 @@ class User < ActiveRecord::Base
 
     ancestors = \
       Category \
-        .joins('INNER JOIN `model_group_links` ' \
-               'ON `model_groups`.`id` = `model_group_links`.`ancestor_id`')
+        .joins('INNER JOIN model_group_links ' \
+               'ON model_groups.id = model_group_links.parent_id')
         .where(model_group_links: \
-                 { descendant_id: borrowable_categories.pluck(:id) })
+                 { child_id: borrowable_categories.pluck(:id) })
         .uniq
 
     [borrowable_categories, ancestors].flatten.uniq
@@ -100,9 +100,9 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, unless: :delegation?
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
-  # tmp#2#, :finder_sql => 'SELECT * FROM `groups`
-  # INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id
-  # OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
+  # tmp#2#, :finder_sql => 'SELECT * FROM groups
+  # INNER JOIN groups_users ON groups.id = groups_users.group_id
+  # OR groups.inventory_pool_id IS NULL WHERE (groups_users.user_id = #{id})'
   has_and_belongs_to_many :groups do
     def with_general
       to_a + [Group::GENERAL_GROUP_ID]
@@ -128,29 +128,22 @@ class User < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = %w(login firstname lastname badge_id)
 
+  # radical simplification here; I have no idea what the previous mess
+  # was supposed to achieve
   scope :search, lambda { |query|
     sql = all
     return sql if query.blank?
-
     sql = sql.uniq.joins(
-      'LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ' \
-      'ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)'
+      'LEFT JOIN  delegations_users AS du  ' \
+      'ON du.delegation_id = users.id '
     )
-    u2_table = Arel::Table.new(:u2)
-
     query.split.each do|q|
       q = "%#{q}%"
       sql = sql.where(arel_table[:login].matches(q)
                       .or(arel_table[:firstname].matches(q))
                       .or(arel_table[:lastname].matches(q))
                       .or(arel_table[:badge_id].matches(q))
-                      .or(arel_table[:unique_id].matches(q))
-                      .or(u2_table[:login].matches(q))
-                      .or(u2_table[:firstname].matches(q))
-                      .or(u2_table[:lastname].matches(q))
-                      .or(u2_table[:badge_id].matches(q))
-                      .or(u2_table[:unique_id].matches(q))
-                     )
+                      .or(arel_table[:unique_id].matches(q)))
     end
     sql
   }
