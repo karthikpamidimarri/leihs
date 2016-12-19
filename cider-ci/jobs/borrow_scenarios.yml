@@ -18,6 +18,8 @@ jobs:
     context:
 
       task_defaults:
+        traits:
+          g2012: true
         load: 1.5
         max_trials: 1
         include:
