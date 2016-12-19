@@ -49,37 +49,20 @@ class ModelGroup < ActiveRecord::Base
   # c = FactoryGirl.create :model_group, name: 'Child', type: 'ModelGroup'
   # ModelGroupLink.create parent: p, child: c
 
-  def self_and_descendant_ids
-    descendant_ids + [id]
-  end
-
-  def descendant_ids(alread_found_descendants = Set.new([]))
-    if alread_found_descendants.empty?
-      children = Set.new(child_links.pluck(:child_id))
-      if children.empty?
-        children
-      else
-        descendant_ids children
-      end
-    else
-      with_children_children = Set.new(alread_found_descendants + Set.new(alread_found_descendants.map{|did|self.class.find(did).child_links.pluck(:child_id)}.flatten))
-      if with_children_children = alread_found_descendants
-        with_children_children
-      else
-        descendant_ids with_children_children
-      end
-    end
+  def descendants (found = [])
+    more = Set.new(self.children) + found.map(&:children).flatten
+    more == Set.new(found) ? found : descendants(more).to_a
   end
 
   def self_and_descendants
-    self.class.where(id: self_and_descendant_ids.to_a)
+    descendants + [self]
   end
 
   # NOTE it's now chainable for scopes
   def all_models
     Model
       .joins(:model_links)
-      .where(model_links: { model_group_id: self_and_descendant_ids })
+      .where(model_links: { model_group_id: self_and_descendants.map(&:id)})
       .uniq
   end
 
