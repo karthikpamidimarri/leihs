@@ -1,0 +1,31 @@
+jobs:
+
+  borrow_flapping_scenarios:
+
+    name: 'Borrow: Flapping Scenarios'
+
+    description: |
+      Run Borrow flapping scenarios
+
+    priority: -1
+
+    run_when:
+      branch name matches master or borrow:
+        type: branch
+        include_match: '^.*(master|borrow|v4_pg_tests).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
+
+    context:
+
+      task_defaults:
+        traits:
+          g2016: true
+        load: 2.0
+        max_trials: 5
+        eager_trials: 2
+        include:
+          - cider-ci/task_components/database.yml
+
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/borrow_flapping_scenarios.yml
