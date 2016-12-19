@@ -406,7 +406,7 @@ Then /^the data has been updated$/ do
   if @model && !@model_id
     @model_id = @model.id
   end
-  expect((Rails.application.routes.recognize_path current_path)[:id].to_i).to eq @model_id
+  expect((Rails.application.routes.recognize_path current_path)[:id]).to eq @model_id
 
   @table_hashes.each do |row|
     field_name = row['Field']
@@ -751,7 +751,7 @@ Given(/^one is on the list of the options$/) do
 end
 
 When(/^I choose a certain responsible pool inside the whole inventory$/) do
-  @responsible_pool = @current_inventory_pool.own_items.select(:inventory_pool_id).where.not(items: {inventory_pool_id: [@current_inventory_pool.id, nil]}).uniq.first.inventory_pool
+  @responsible_pool = @current_inventory_pool.own_items.select(:inventory_pool_id, :id).where.not(items: {inventory_pool_id: [@current_inventory_pool.id, nil]}).uniq.first.inventory_pool
   find(:select, 'responsible_inventory_pool_id').find(:option, @responsible_pool.name).select_option
 end
 

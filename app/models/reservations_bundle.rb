@@ -140,7 +140,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   #######################################################
 
-  scope :with_verifiable_user, -> { having('verifiable_user = 1') }
+  scope :with_verifiable_user, -> { having('bool_or(groups.is_verification_required)') }
   scope(:with_verifiable_user_and_model,
         -> { having('COUNT(partitions.id) > 0') })
   scope :no_verification_required, -> { having('COUNT(partitions.id) = 0') }
