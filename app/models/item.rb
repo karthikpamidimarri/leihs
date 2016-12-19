@@ -98,19 +98,20 @@ class Item < ActiveRecord::Base
     model_fields_2 = Model::SEARCHABLE_FIELDS.map { |f| "m2.#{f}" }.join(', ')
     item_fields_1 = Item::SEARCHABLE_FIELDS.map { |f| "i1.#{f}" }.join(', ')
     item_fields_2 = Item::SEARCHABLE_FIELDS.map { |f| "i2.#{f}" }.join(', ')
-    joins('INNER JOIN ' \
-            '(SELECT i1.id, ' \
-               "CAST(CONCAT_WS(' ', " \
-                              "#{model_fields_1}, " \
-                              "#{model_fields_2}, " \
-                              "#{item_fields_1}, " \
-                              "#{item_fields_2}) AS CHAR) AS text " \
-             'FROM items AS i1 ' \
-             'INNER JOIN models AS m1 ON i1.model_id = m1.id ' \
-             'LEFT JOIN items AS i2 ON i2.parent_id = i1.id ' \
-             'LEFT JOIN models AS m2 ON m2.id = i2.model_id) ' \
-             'AS full_text ON items.id = full_text.id')
-      .where(Arel::Table.new(:full_text)[:text].matches_all(q))
+    joins(<<-SQL)
+      INNER JOIN (SELECT i1.id,
+                         CONCAT_WS(' ',
+                                   #{model_fields_1},
+                                   #{model_fields_2},
+                                   #{item_fields_1},
+                                   #{item_fields_2}) AS text
+                  FROM items AS i1
+                  INNER JOIN models AS m1 ON i1.model_id = m1.id
+                  LEFT JOIN items AS i2 ON i2.parent_id = i1.id
+                  LEFT JOIN models AS m2 ON m2.id = i2.model_id) AS full_text
+      ON items.id = full_text.id
+    SQL
+    .where(Arel::Table.new(:full_text)[:text].matches_all(q))
   }
 
   def self.filter(params, inventory_pool = nil)
