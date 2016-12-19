@@ -304,7 +304,7 @@ end
 
 Then(/^I can assign and remove roles to and from users as specified in the following table, but only in the inventory pool for which I am manager$/) do |table|
   table.hashes.map do |x|
-    unknown_user = User.detect { |u| not u.access_right_for(@inventory_pool) }
+    unknown_user = User.all.detect { |u| not u.access_right_for(@inventory_pool) }
     expect(unknown_user).not_to be_nil
 
     role = case x[:role]
