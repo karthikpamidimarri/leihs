@@ -1,0 +1,35 @@
+jobs:
+
+  check_scenarios_integrity:
+
+    name: 'Check scenarios integrity'
+
+    description: |
+      Check if scenarios match the generated list (yaml)
+
+    run_when:
+      branch name matches master:
+        type: branch
+        include_match: '^.*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
+
+    context:
+
+      include:
+        - cider-ci/shared/main_context.yml
+
+      tasks:
+        create_and_diff_scenarios_list:
+          max_trials: 1
+          name: 'Check if scenarios yml list corresponds to feature files'
+          scripts:
+            test:
+              body: |
+                set -eux
+                cider-ci/bin/list_cucumber_tasks.rb
+                if [[ $(git diff cider-ci/tasks/) ]]; then
+                  exit 1
+                else
+                  exit 0
+                fi
+

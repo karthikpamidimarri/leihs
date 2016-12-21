@@ -15,6 +15,12 @@ jobs:
         include_match: '^.*(master|manage).*$'
         exclude_match: '^.*(no-ci|hotspot).*$'
 
+    depends_on:
+      scenarios_integrity:
+        type: job
+        job_key: check_scenarios_integrity
+        states: [passed]
+
     context:
 
       task_defaults:
