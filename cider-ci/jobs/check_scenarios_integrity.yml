@@ -27,9 +27,5 @@ jobs:
               body: |
                 set -eux
                 cider-ci/bin/list_cucumber_tasks.rb
-                if [[ $(git diff cider-ci/tasks/) ]]; then
-                  exit 1
-                else
-                  exit 0
-                fi
+                git diff --quiet cider-ci/tasks/
 
