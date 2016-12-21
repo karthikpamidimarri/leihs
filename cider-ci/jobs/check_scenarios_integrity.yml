@@ -27,5 +27,5 @@ jobs:
               body: |
                 set -eux
                 cider-ci/bin/list_cucumber_tasks.rb
-                git diff --quiet cider-ci/tasks/
+                git diff --quiet cider-ci/tasks/ || { git diff cider-ci/tasks/; exit 1 ;}
 
