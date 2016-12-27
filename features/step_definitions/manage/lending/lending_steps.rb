@@ -1,3 +1,17 @@
+When(/^I open a hand over with an unassigned item line$/) do
+  @customer = FactoryGirl.create(:user)
+  FactoryGirl.create(:access_right,
+                     user: @customer,
+                     inventory_pool: @current_inventory_pool,
+                     role: :customer)
+  FactoryGirl.create(:reservation,
+                     status: :approved,
+                     item: nil,
+                     inventory_pool: @current_inventory_pool,
+                     user: @customer)
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
+end
+
 When /^I manually assign an inventory code to an item$/ do
   step 'I click an inventory code input field of an item line'
   step 'I select one of those'
