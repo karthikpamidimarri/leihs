@@ -29,8 +29,8 @@ Then /^the model is created and the packages and their assigned items are saved$
   expect(@model.is_package?).to be true
   @packages = @model.items
   expect(@packages.count).to eq 1
-  expect(@packages.first.children.first.inventory_code).to eq 'beam123'
-  expect(@packages.first.children.second.inventory_code).to eq 'beam345'
+  expect(@packages.first.children.map(&:inventory_code))
+    .to match_array ['beam123', 'beam345', 'bose123']
 end
 
 Then /^the packages have their own inventory codes$/ do
