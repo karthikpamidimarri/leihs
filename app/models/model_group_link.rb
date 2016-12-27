@@ -6,5 +6,4 @@ class ModelGroupLink < ActiveRecord::Base
 
   belongs_to :parent, class_name: 'ModelGroup'
 
-
 end

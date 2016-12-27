@@ -30,18 +30,20 @@ class ModelGroup < ActiveRecord::Base
   # has_dag_links link_class_name: 'ModelGroupLink'
 
   has_many :parent_links,
-    class_name: ::ModelGroupLink,
-    foreign_key: :child_id
+           class_name: ::ModelGroupLink,
+           foreign_key: :child_id
 
   has_many :child_links,
-    class_name: ::ModelGroupLink,
-    foreign_key: :parent_id
+           class_name: ::ModelGroupLink,
+           foreign_key: :parent_id
 
-  has_and_belongs_to_many :children,
+  has_and_belongs_to_many \
+    :children,
     join_table: :model_group_links, class_name: 'ModelGroup',
     foreign_key: :parent_id, association_foreign_key: :child_id
 
-  has_and_belongs_to_many :parents,
+  has_and_belongs_to_many \
+    :parents,
     join_table: :model_group_links, class_name: 'ModelGroup',
     foreign_key: :child_id, association_foreign_key: :parent_id
 
@@ -49,7 +51,7 @@ class ModelGroup < ActiveRecord::Base
   # c = FactoryGirl.create :model_group, name: 'Child', type: 'ModelGroup'
   # ModelGroupLink.create parent: p, child: c
 
-  def descendants (found = [])
+  def descendants(found = [])
     more = Set.new(self.children) + found.map(&:children).flatten
     more == Set.new(found) ? found : descendants(more).to_a
   end
@@ -62,7 +64,7 @@ class ModelGroup < ActiveRecord::Base
   def all_models
     Model
       .joins(:model_links)
-      .where(model_links: { model_group_id: self_and_descendants.map(&:id)})
+      .where(model_links: { model_group_id: self_and_descendants.map(&:id) })
       .uniq
   end
 

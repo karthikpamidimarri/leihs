@@ -52,7 +52,9 @@ class Borrow::TemplatesController < Borrow::ApplicationController
     model_links = @template.model_links
     @models = @template.models
     @reservations = \
-      params[:reservations].delete_if { |l| Integer(l['quantity'].presence || 0) == 0 }.map do |line|
+      params[:reservations].delete_if do |l|
+          Integer(l['quantity'].presence || 0) == 0
+      end.map do |line|
         model = @models.detect { |m| m.id == line['model_id'] }
         quantity = Integer(line['quantity'])
         {

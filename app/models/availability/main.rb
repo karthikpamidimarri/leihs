@@ -179,7 +179,10 @@ module Availability
         h[group_id] = \
           inner_changes
             .values
-            .map { |c| Integer(c[group_id].try(:fetch, :in_quantity).presence || 0)}
+            .map do |c|
+            Integer(c[group_id] \
+                               .try(:fetch, :in_quantity).presence || 0)
+            end
             .min
       end
       h

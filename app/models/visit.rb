@@ -22,7 +22,9 @@ class Visit < ActiveRecord::Base
     visit_id
   end
 
-  VISIT_ID_SQL_EXPR = "ENCODE( DIGEST( CONCAT_WS('_', date, reservations.inventory_pool_id, reservations.user_id, status), 'sha1' ), 'hex' )"
+  VISIT_ID_SQL_EXPR =
+    "ENCODE( DIGEST( CONCAT_WS('_', date, reservations.inventory_pool_id, " \
+    " reservations.user_id, status), 'sha1' ), 'hex' )"
 
   default_scope do
     select(<<-SQL)
@@ -31,12 +33,13 @@ class Visit < ActiveRecord::Base
       #{VISIT_ID_SQL_EXPR} AS visit_id
     SQL
     .from(<<-SQL)
-      (SELECT CASE WHEN status = 'signed' THEN end_date ELSE start_date END AS date,
-              inventory_pool_id,
-              inventory_pools.name AS inventory_pool_name,
-              user_id,
-              status,
-              quantity
+      (SELECT
+        CASE WHEN status = 'signed' THEN end_date ELSE start_date END AS date,
+        inventory_pool_id,
+        inventory_pools.name AS inventory_pool_name,
+        user_id,
+        status,
+        quantity
        FROM reservations
        JOIN inventory_pools ON inventory_pools.id = inventory_pool_id
        WHERE status IN ('submitted', 'approved','signed')) AS reservations

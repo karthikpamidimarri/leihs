@@ -139,7 +139,9 @@ class ReservationsBundle < ActiveRecord::Base
 
   #######################################################
 
-  scope :with_verifiable_user, -> { having('bool_or(groups.is_verification_required)') }
+  scope :with_verifiable_user, lambda {
+    having('bool_or(groups.is_verification_required)')
+  }
   scope(:with_verifiable_user_and_model,
         -> { having('COUNT(partitions.id) > 0') })
   scope :no_verification_required, -> { having('COUNT(partitions.id) = 0') }
@@ -235,10 +237,12 @@ class ReservationsBundle < ActiveRecord::Base
 
     if r = params[:range]
       if r[:start_date]
-        contracts = contracts.having('reservations.created_at::date >= ?', r[:start_date])
+        contracts = contracts.having(
+          'reservations.created_at::date >= ?', r[:start_date])
       end
       if r[:end_date]
-        contracts = contracts.having('reservations.created_at::date <= ?', r[:end_date])
+        contracts = contracts.having(
+          'reservations.created_at::date <= ?', r[:end_date])
       end
     end
 

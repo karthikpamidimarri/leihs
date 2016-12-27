@@ -238,7 +238,7 @@ module Statistics
         query = case klass.name
                 when 'User'
                   query.joins(:reservations)
-                    .group("users.id")
+                    .group('users.id')
                     .group("reservations.#{klass.name.foreign_key}")
                     .select("CAST(CONCAT_WS(' ', " \
                                            'users.firstname, ' \
@@ -249,7 +249,7 @@ module Statistics
                     .select('inventory_pools.name AS label')
                 when 'Model'
                   query.joins(:reservations)
-                    .group("models.id")
+                    .group('models.id')
                     .group("reservations.#{klass.name.foreign_key}")
                     .select("CONCAT_WS(' ', " \
                                       'models.manufacturer, ' \
@@ -257,7 +257,7 @@ module Statistics
                                       'models.version) AS label')
                 when 'Item'
                   query.joins(item_lines: :model)
-                    .group("items.id")
+                    .group('items.id')
                     .group("reservations.#{klass.name.foreign_key}")
                     .select("CONCAT_WS(' ', " \
                                       'items.inventory_code, ' \
