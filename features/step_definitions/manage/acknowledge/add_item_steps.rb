@@ -141,9 +141,9 @@ end
 
 When(/^I enter a model name( which is not related to my current pool)?$/) do |arg1|
   model = if arg1
-            Model - @current_inventory_pool.models
+            Model.all - @current_inventory_pool.models
           else
-            Model
+            Model.all
           end.first
   find('#assign-or-add-input input').set model.name[0..-2]
 end
