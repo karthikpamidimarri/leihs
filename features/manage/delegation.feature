@@ -255,21 +255,21 @@ Feature: Delegation
     Then the hand over goes to the new delegation
     And the newly selected contact person is saved
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Which delegations are shown when changing delegation in an order
     Given I am Pius
     And I open an order
     When I try to change the delegation
     Then I can choose only those delegations that have access to this inventory pool
 
-  @javascript @personas
+  @javascript @personas @browser @flapping
   Scenario: Changing delegation - only one contact person field
     Given I am Pius
     And I am editing a delegation's order
     When I change the delegation
     Then I see exactly one contact person field
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Changing delegation - contact person is required
     Given I am Pius
     And I open an order

@@ -22,7 +22,7 @@ Feature: Displaying problems
      Then the affected item's line shows the item's problems
      And the problem is displayed as: "Gegenstand ist defekt"
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Showing problems when handing over a defective item
     Given I am doing a hand over
     And one item is defective
@@ -36,7 +36,7 @@ Feature: Displaying problems
      Then the affected item's line shows the item's problems
      And the problem is displayed as: "Gegenstand ist unvollständig"
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Showing problems when handing over an item that is not borrowable
     Given I am doing a hand over
     And one item is not borrowable

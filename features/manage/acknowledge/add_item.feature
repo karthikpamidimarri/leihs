@@ -13,7 +13,7 @@ Feature: Add Item during acknowledge process
     When I add a model by typing in the inventory code of an item of that model to the quick add
     Then the model is added to the contract
 
-  @javascript @personas @browser
+  @javascript @personas @browser @flapping
   Scenario: Autocompletion of the quick add input by model name
     Given I open a contract for acknowledgement
     When I start to type the name of a model which is not yet in the contract
@@ -31,7 +31,7 @@ Feature: Add Item during acknowledge process
     And an additional line has been created in the backend system
     And the new line is getting visually merged with the existing line
 
-  @javascript @personas @browser
+  @javascript @personas @browser @flapping
   Scenario: Search results should conform to the actual start and end date
     Given I open a contract for acknowledgement
     And I search for a model with default dates and note the current availability
