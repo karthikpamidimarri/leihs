@@ -72,6 +72,20 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 SET search_path = public, pg_catalog;
 
 --
+-- Name: reservation_status; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE reservation_status AS ENUM (
+    'unsubmitted',
+    'submitted',
+    'rejected',
+    'approved',
+    'signed',
+    'closed'
+);
+
+
+--
 -- Name: hex_to_int(character varying); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -753,7 +767,7 @@ CREATE TABLE reservations (
     delegated_user_id uuid,
     handed_over_by_user_id uuid,
     type character varying DEFAULT 'ItemLine'::character varying NOT NULL,
-    status character varying NOT NULL,
+    status reservation_status NOT NULL,
     item_id uuid,
     model_id uuid,
     quantity integer DEFAULT 1,
@@ -764,8 +778,7 @@ CREATE TABLE reservations (
     purpose_id uuid,
     returned_to_user_id uuid,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT check_allowed_statuses CHECK (((status)::text = ANY ((ARRAY['unsubmitted'::character varying, 'submitted'::character varying, 'rejected'::character varying, 'approved'::character varying, 'signed'::character varying, 'closed'::character varying])::text[])))
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -2356,6 +2369,8 @@ INSERT INTO schema_migrations (version) VALUES ('0');
 INSERT INTO schema_migrations (version) VALUES ('1');
 
 INSERT INTO schema_migrations (version) VALUES ('10');
+
+INSERT INTO schema_migrations (version) VALUES ('11');
 
 INSERT INTO schema_migrations (version) VALUES ('2');
 

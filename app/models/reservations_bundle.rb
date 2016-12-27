@@ -22,10 +22,10 @@ class ReservationsBundle < ActiveRecord::Base
     select(<<-SQL)
       COALESCE(reservations.contract_id::text,
                CONCAT_WS('_',
-                         reservations.status,
+                         MAX(reservations.status),
                          reservations.user_id::text,
                          reservations.inventory_pool_id::text)) AS id,
-      reservations.status,
+      MAX(reservations.status) AS status,
       reservations.user_id,
       reservations.inventory_pool_id,
       reservations.delegated_user_id,
@@ -46,7 +46,6 @@ class ReservationsBundle < ActiveRecord::Base
     SQL
     .group(<<-SQL)
       reservations.contract_id::text,
-      reservations.status,
       reservations.user_id,
       reservations.inventory_pool_id,
       reservations.created_at::date,
