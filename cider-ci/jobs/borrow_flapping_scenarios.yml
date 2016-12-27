@@ -7,7 +7,7 @@ jobs:
     description: |
       Run Borrow flapping scenarios
 
-    priority: -1
+    priority: 0
 
     run_when:
       branch name matches master or borrow:
@@ -20,8 +20,8 @@ jobs:
       task_defaults:
         traits:
           g2016: true
-        load: 2.0
-        max_trials: 5
+        load: 1.5
+        max_trials: 4
         eager_trials: 1
         include:
           - cider-ci/task_components/database.yml

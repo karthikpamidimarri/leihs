@@ -75,7 +75,7 @@ Feature: Calendar
   Scenario: Showing closed days in the calendar
     Given I have opened the booking calendar
 
-  @javascript @browser @personas @problematic
+  @javascript @browser @personas
   Scenario: Using the calendar after resetting all filters
     When I add a model to an order
     And I am listing models

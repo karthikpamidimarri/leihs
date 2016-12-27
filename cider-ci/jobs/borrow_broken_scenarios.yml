@@ -1,11 +1,11 @@
 jobs:
 
-  borrow_problematic_scenarios:
+  borrow_broken_scenarios:
 
-    name: 'Borrow: Problematic Scenarios'
+    name: 'Borrow: Broken Scenarios'
 
     description: |
-      Run Borrow problematic scenarios under MRI
+      Run Borrow flapping scenarios
 
     priority: 0
 
@@ -17,14 +17,13 @@ jobs:
 
     context:
 
-      include:
-        - cider-ci/shared/main_context.yml
-        - cider-ci/tasks/borrow_problematic_scenarios.yml
-
       task_defaults:
-        traits:
-          g2016: true
-        load: 2
-        max_trials: 6
+        load: 1.5
+        max_trials: 2
+        eager_trials: 1
         include:
           - cider-ci/task_components/database.yml
+
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/borrow_broken_scenarios.yml
