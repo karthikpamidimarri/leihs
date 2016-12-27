@@ -33,13 +33,15 @@ class Visit < ActiveRecord::Base
     .from(<<-SQL)
       (SELECT CASE WHEN status = 'signed' THEN end_date ELSE start_date END AS date,
               inventory_pool_id,
+              inventory_pools.name AS inventory_pool_name,
               user_id,
               status,
               quantity
        FROM reservations
+       JOIN inventory_pools ON inventory_pools.id = inventory_pool_id
        WHERE status IN ('submitted', 'approved','signed')) AS reservations
     SQL
-    .group('user_id, status, date, inventory_pool_id')
+    .group('user_id, status, date, inventory_pool_id, inventory_pool_name')
     .order('date')
   end
 
