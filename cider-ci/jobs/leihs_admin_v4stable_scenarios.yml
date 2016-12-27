@@ -12,7 +12,7 @@ jobs:
     run_when:
       branch name matches master or admin:
         type: branch
-        include_match: '^.*(master|admin|v4_pg_tests).*$'
+        include_match: '^.*(master|admin).*$'
         exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
