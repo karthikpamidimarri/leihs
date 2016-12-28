@@ -12,7 +12,7 @@ Feature: List of contracts
       | Closed |
     And the checkbox "To be verified" is already checked and I can uncheck
 
-  @personas @javascript
+  @personas @javascript @flapping
   Scenario: View contracts
     When I open the tab "Contracts"
     Then I can view "open" contracts
