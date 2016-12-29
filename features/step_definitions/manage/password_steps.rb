@@ -33,10 +33,11 @@ When(/^the user has access to an inventory pool$/) do
   AccessRight.create(attributes) unless AccessRight.where(attributes).first
 end
 
-Then(/^the user "(.*?)" can log in with password "(.*?)"$/) do |login, password|
+Then(/^the user "(.*?)" can log in with password "(.*?)"$/) do |firstname, password|
+  @user ||= User.find_by_firstname(firstname)
   step 'I make sure I am logged out'
   visit login_path
-  step %Q{I fill in "username" with "#{login}"}
+  step %Q{I fill in "username" with "#{@user.login}"}
   step %Q{I fill in "password" with "#{password}"}
   step 'I press "Login"'
   expect(has_content?(@user.short_name)).to be true
