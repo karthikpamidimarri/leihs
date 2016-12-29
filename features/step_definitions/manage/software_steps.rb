@@ -618,7 +618,7 @@ end
 
 Then(/^the manufacturer can be selected from the list$/) do
   input_field = find('.field', text: _('Manufacturer')).find('input')
-  input_field.click
+  input_field.set @manufacturer
   find('.ui-menu-item', text: @manufacturer).click
   expect(input_field.value).to eq @manufacturer
 end
