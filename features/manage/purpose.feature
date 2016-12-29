@@ -56,7 +56,7 @@ Feature: Purpose
     But I do not assign a purpose
     Then I can finish the hand over
 
-  @javascript @browser @personas
+  @javascript @browser @personas @flapping
   Scenario: Hand overs with a few items that don't have a purpose are possible
     When I open a hand over
     And I click an inventory code input field of an item line
