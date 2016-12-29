@@ -46,18 +46,8 @@ Then /^the item is added to the hand over for the provided date range and the in
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
-  @inventory_code = if @option
-                      @option
-                    else
-                      existing_options = if @contract
-                                           @contract.options
-                                         elsif @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
-                                           @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).options
-                                         else
-                                           []
-                                         end
-                      (@current_inventory_pool.options - existing_options).first
-                    end.inventory_code
+  @option ||= FactoryGirl.create(:option, inventory_pool: @current_inventory_pool)
+  @inventory_code = @option.inventory_code
   find('#assign-or-add-input input').set @inventory_code
   find('#assign-or-add button').click
   find(".line[data-line-type='option_line'] .grey-text", text: @inventory_code)
