@@ -49,7 +49,7 @@ Feature: Contract
     Then I see list 1 with the title "Returned Items"
     And this list contains borrowed and returned items
 
-  @javascript @browser @personas
+  @javascript @browser @personas @flapping
   Scenario: Purposes
     Given I open a contract during hand over
     Then I see a comma-separated list of purposes
