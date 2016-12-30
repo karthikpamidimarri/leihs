@@ -1,6 +1,6 @@
 :ruby
-  def add_timeband(inventory_pool, bandNames_js, bandInfos_js, group_id_as_string)
-    if group_id_as_string == "-1"
+  def add_timeband(inventory_pool, bandNames_js, bandInfos_js, group_id)
+    if group_id == "-1"
       bandInfos_js << <<-BAND2A
         Timeline.createBandInfo( { timeZone:       2,
                                    eventSource:    null,
@@ -10,8 +10,18 @@
                                    theme:         theme } )
         BAND2A
       bandNames_js << _("Available in total: ")
-   else
-      group_id = group_id_as_string
+    elsif group_id.nil?
+      bandInfos_js << <<-BAND2B
+        Timeline.createBandInfo( { timeZone:       2,
+                                   eventSource:    eventSource[0],
+                                   intervalUnit:   Timeline.DateTime.DAY,
+                                   intervalPixels: 50,
+                                   align:         'Top',
+                                   theme:         theme } )
+        BAND2B
+      group_name = _("general")
+      bandNames_js << (_("Available in group '") + group_name + "' :")
+    else
       bandInfos_js << <<-BAND2B
         Timeline.createBandInfo( { timeZone:       2,
                                    eventSource:    eventSource[#{group_id}],
@@ -20,7 +30,7 @@
                                    align:         'Top',
                                    theme:         theme } )
         BAND2B
-      group_name = group_id > 0 ? inventory_pool.groups.find(group_id).to_s : _("general")
+      group_name = inventory_pool.groups.find(group_id).to_s
       bandNames_js << (_("Available in group '") + group_name + "' :")
     end
   end
@@ -31,7 +41,7 @@
     av.running_reservations.each do |line|
       line.reload # NOTE this is quick fix because we have a running_reservation
       user = line.user
-      group_id = line.allocated_group_id
+      group_id = line.allocated_group_id || 0 # fallback as 0 when general group (nil)
 
       # if line is late then it won't be available until the item is returned
       end_date = line.late? ? Availability::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
@@ -123,7 +133,7 @@
   # We color days according to whether the total in a particular group is above zero or no.
   # In addition to each group we also do this for the overall total of available items in stock of a certain model.
   # We use the "special" group id -1 for the total. The to_i comparison is needed to convert nil to 0 :
-  group_ids = (["-1"] + av.partitions.keys).sort {|a,b| Integer(a.presence || 0) <=> Integer(b.presence || 0)}
+  group_ids = (["-1"] + av.partitions.keys)
   group_ids.each do |g|
     add_timeband(current_inventory_pool, bandNames_js, bandInfos_js, g)
 
