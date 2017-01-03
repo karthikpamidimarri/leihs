@@ -148,7 +148,7 @@ steps_for :users_and_organisations do
   end
 
   step 'the new admin was saved to the database' do
-    expect(Procurement::Access.admins.exists?(@user.id)).to be true
+    expect(Procurement::Access.admins.exists?(user_id: @user.id)).to be true
   end
 
   step 'the requesters are sorted 0-10 and a-z' do
