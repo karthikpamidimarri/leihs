@@ -50,7 +50,8 @@ Then /^I see the list of categories$/ do
   within('#categories-index-view') do
     find('h1', text: _('List of Categories'))
     expect(current_path).to eq manage_categories_path(@current_inventory_pool)
-    @parent_categories = ModelGroup.where(type: 'Category').select { |mg| ModelGroupLink.where(descendant_id: mg.id).empty? }
+    @parent_categories =
+      ModelGroup.where(type: 'Category').select { |mg| ModelGroupLink.where(child_id: mg.id).empty? }
     @parent_categories.each do |pc|
       find '.line', visible: true, text: pc.name
     end
