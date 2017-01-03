@@ -699,7 +699,7 @@ steps_for :managing_requests do
       all('[data-request_id]', minimum: 1).map do |el|
         el['data-request_id']
       end.each do |id|
-        expect(@found_requests.map(&:id)).to include id.to_i
+        expect(@found_requests.map(&:id)).to include id
       end
     end
   end
