@@ -49,7 +49,7 @@ Feature: Description of roles
     And I can not add categories
     And I can see all budget limits
 
-    @roles
+    @roles @flapping
     Scenario: Role Inspector and Requester
       Given I am Barbara
       And the basic dataset is ready

@@ -134,6 +134,9 @@ ENGINES.each do |engine|
   if engine == 'procurement'
     engine_feature_files_paths = ["engines/#{engine}/spec/features/*.feature"]
     create_scenario_tasks(filepath, engine_feature_files_paths, :rspec)
+
+    filepath = "cider-ci/tasks/#{engine}_flapping_scenarios.yml"
+    create_scenario_tasks(filepath, engine_feature_files_paths, :rspec, tags:['@flapping'])
   else
     engine_feature_files_paths = ["engines/#{engine}/**/*.feature"]
     create_scenario_tasks(filepath, engine_feature_files_paths, :cucumber)

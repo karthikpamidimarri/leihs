@@ -41,7 +41,7 @@ Feature: Exporting the data to a CSV-File
       | Barbara   |
       | Hans Ueli |
 
-  @csv
+  @csv @flapping
   Scenario: Export data for requesters
     Given I am Roger
     And all the existing requests are removed from the database

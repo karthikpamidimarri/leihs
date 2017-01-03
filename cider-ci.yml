@@ -27,6 +27,7 @@ include:
 
   ## PROCUREMENT - on branches foo/procurement_bar
   - cider-ci/jobs/procurement_scenarios.yml
+  - cider-ci/jobs/procurement_flapping_scenarios.yml
   - cider-ci/jobs/procurement_code_checks.yml
 
   # always runs, but depends on other jobs
@@ -35,5 +36,3 @@ include:
 
   # run manually
   - cider-ci/jobs/hot_spot_scenarios.yml
-
-
