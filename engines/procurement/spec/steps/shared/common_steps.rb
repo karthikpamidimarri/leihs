@@ -687,16 +687,6 @@ module CommonSteps
     else
       Timecop.return
     end
-
-    # The minimum representable time is 1901-12-13,
-    # and the maximum representable time is 2038-01-19
-    ActiveRecord::Base.connection.execute \
-      "SET TIMESTAMP=unix_timestamp('#{Time.now.iso8601}')"
-    mysql_now = ActiveRecord::Base.connection \
-    .exec_query('SELECT now()').rows.flatten.first
-    if mysql_now != Time.zone.today
-      raise 'MySQL current datetime has not been changed'
-    end
   end
 
   def link_on_dropdown(link_string, present = true)
