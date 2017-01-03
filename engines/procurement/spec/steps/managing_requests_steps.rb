@@ -579,7 +579,7 @@ steps_for :managing_requests do
       step 'I expand all the sub categories'
 
       client_ids = all('[data-request_id]', minimum: 1).map do |el|
-        el['data-request_id'].to_i
+        el['data-request_id']
       end
 
       server_ids = Procurement::Request.where(id: client_ids).sort do |a, b|
