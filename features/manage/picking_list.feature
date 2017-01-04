@@ -19,7 +19,7 @@ Feature: Picking list
     | Lender   |
     | List     |
 
-  @personas @javascript @browser @broken
+  @personas @javascript @browser
   Scenario: Content of a picking list before hand over -- unassigned inventory codes
     Given there is a hand over with at least one unproblematic model and an option
     And I open the hand over
