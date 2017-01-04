@@ -15,7 +15,7 @@ Feature: Add reservations during hand over
     When I add an unborrowable item to the hand over by providing an inventory code
     Then the item is added to the hand over for the provided date range and the inventory code is already assigend
 
-  @javascript @personas @flapping
+  @javascript @personas
   Scenario: Add an option to the hand over providing an inventory code
     Given I open a hand over
     And I add an option to the hand over by providing an inventory code and a date range

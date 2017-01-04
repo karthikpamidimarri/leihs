@@ -4,7 +4,7 @@ Feature: Displaying problems
   Background:
     Given I am Pius
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Showing problems in an order when a model is not avaiable
     #Given ich editiere eine Bestellung die nicht in der Vergangenheit liegt
     Given I edit an order

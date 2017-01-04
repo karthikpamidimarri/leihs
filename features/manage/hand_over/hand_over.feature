@@ -3,7 +3,7 @@ Feature: Edit a hand over
   Background:
     Given I am Pius
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Feedback on a successful manual interaction during hand over
     Given there is a hand over with at least one unproblematic model and an option
     And I open the hand over
@@ -70,7 +70,7 @@ Feature: Edit a hand over
     And I click hand over inside the dialog
     Then "something" appears on the contract
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Hand over options with at least quantity 1
     When I open a hand over
     And I add an option

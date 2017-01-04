@@ -100,7 +100,7 @@ Feature: Manage users
       | Inventory manager | inventory_managers |
     And I can open the edit view for each user
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Displaying a user and their roles in lists
     Given I am inventory manager or lending manager
     And a user with assigned role appears in the user list

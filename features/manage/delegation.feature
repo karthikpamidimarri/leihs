@@ -59,7 +59,7 @@ Feature: Delegation
     When I pick a delegation instead of a user
     Then the order shows the delegation
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Tooltip display
     Given I am Pius
     When I search for a delegation
