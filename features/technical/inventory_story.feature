@@ -1,7 +1,8 @@
 Feature: Inventory
 
-       Describing Inventory Pools, Items, Models and Categories
-       
+  Describing Inventory Pools, Items, Models and Categories
+
+  @flapping
   Scenario: Categories structure
        Given inventory pool 'ABC'
        And inventory pool short name 'ABC'
@@ -28,7 +29,7 @@ Feature: Inventory
        When the category 'Filters' is selected 
        Then there are 0 direct children and 0 total children           
 
-       
+
   Scenario: Models organized in categories
        Given inventory pool 'ABC'
        And inventory pool short name 'ABC'
