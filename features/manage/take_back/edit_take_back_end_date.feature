@@ -7,7 +7,7 @@ Feature: Edit take back end date
   Background:
     Given I am Pius
 
-  @javascript @personas @browser
+  @javascript @personas @browser @flapping
   Scenario: Change the time range of a single take back line
      When I open a take back
       And I change a contract line end date
