@@ -64,7 +64,7 @@ When /^I edit a category$/ do
   within('#categories-index-view #list') do
     find('.line', match: :first)
     all(".button[data-type='expander'] i.arrow.right").each {|toggle| toggle.click }
-    find("a[href='/manage/%d/categories/%d/edit']" % [@current_inventory_pool.id, @category.id], match: :first).click
+    find("a[href='/manage/%s/categories/%s/edit']" % [@current_inventory_pool.id, @category.id], match: :first).click
   end
 end
 

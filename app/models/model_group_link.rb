@@ -6,4 +6,9 @@ class ModelGroupLink < ActiveRecord::Base
 
   belongs_to :parent, class_name: 'ModelGroup'
 
+  def self.find_edge(mg1, mg2)
+    where(parent_id: mg1.id, child_id: mg2.id).first \
+    || where(child_id: mg1.id, parent_id: mg2.id).first
+  end
+
 end

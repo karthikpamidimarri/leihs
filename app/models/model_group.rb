@@ -60,6 +60,10 @@ class ModelGroup < ActiveRecord::Base
     descendants + [self]
   end
 
+  def links_as_child
+    ModelGroupLink.where(child_id: self.id)
+  end
+
   # NOTE it's now chainable for scopes
   def all_models
     Model
@@ -86,10 +90,11 @@ class ModelGroup < ActiveRecord::Base
 
   def label(parent_id = nil)
     if parent_id
-      l = links_as_descendant.find_by(ancestor_id: parent_id)
-      return l.try(:label) || name
+      ModelGroupLink.where(child_id: self.id, parent_id: parent_id) \
+        .first.try(:label) || name
+    else
+      name
     end
-    name
   end
 
   def set_parent_with_label(parent, label)
