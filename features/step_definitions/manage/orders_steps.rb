@@ -140,10 +140,12 @@ end
 
 Then(/^I see the number of items on the order line and can view a popup containing the items ordered$/) do
   find("#{@line_css} [data-type='lines-cell']", text: "#{@contract.reservations.count} #{n_("Item", "Items", @contract.reservations.count)}")
-  @contract.models.each {|m|
-    find("#{@line_css} [data-type='lines-cell']").hover
-    find('.tooltipster-base', text: m.name)
-  }
+    .hover
+  within find('.tooltipster-base') do
+    @contract.models.each do |m|
+      page.should have_content m.name
+    end
+  end
 end
 
 Then(/^I see the duration of the order on the order line$/) do
@@ -211,7 +213,7 @@ end
 
 When(/^I edit an already approved order$/) do
   within '#contracts' do
-    within all('.line[data-id]', minimum: 1).sample do
+    within all('.line[data-id]', minimum: 1).first do
       a = find('a', text: _('Edit'))
       @target_url = a[:href]
       a.click

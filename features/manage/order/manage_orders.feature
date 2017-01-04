@@ -58,7 +58,7 @@ Feature: Edit order
     And I can edit the order
     And I cannot hand over orders
 
-  @javascript @browser @personas @broken
+  @javascript @browser @personas @flapping
   Scenario: Displaying the tab of approved orders
     Given I am Andi
     And I am in an inventory pool with verifiable orders
@@ -70,10 +70,6 @@ Feature: Edit order
     And I see the number of items on the order line and can view a popup containing the items ordered
     And I see the duration of the order on the order line
     And I see the order's status on the order line
-    And I edit an already approved order
-    And I am directed to the hand over view
-    But I cannot hand over
-
 
   @javascript @browser @personas
   Scenario: Displaying the tab of rejected orders
