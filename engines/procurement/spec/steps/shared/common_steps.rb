@@ -16,6 +16,19 @@ end
 
 module CommonSteps
 
+  def wait_until(wait_time = 60, &block)
+    begin
+      Timeout.timeout(wait_time) do
+        until value = block.call
+          sleep(1)
+        end
+        value
+      end
+    rescue Timeout::Error => e
+      fail Timeout::Error.new(block.source)
+    end
+  end
+
   step 'a receiver exists' do
     FactoryGirl.create :user
   end
@@ -115,14 +128,17 @@ module CommonSteps
           when 'price'
               find '.col-sm-1 .total_price', text: request.price.to_i
           when 'requested amount'
-              within all('.col-sm-2.quantities div')[0] do
+              wait_until(5) { first '.col-sm-2.quantities div' }
+              within first('.col-sm-2.quantities div') do
                 expect(page).to have_content request.requested_quantity
               end
           when 'approved amount'
+              wait_until(5) { all('.col-sm-2.quantities div')[1] }
               within all('.col-sm-2.quantities div')[1] do
                 expect(page).to have_content request.approved_quantity
               end
           when 'order amount'
+              wait_until(5) { all('.col-sm-2.quantities div')[2] }
               within all('.col-sm-2.quantities div')[2] do
                 expect(page).to have_content request.order_quantity
               end
