@@ -32,7 +32,7 @@ Feature: Edit order
     Then this order was created by a user that is in a group whose orders require verification
     And this order contains a model from a group whose orders require verification
 
-  @javascript @personas @broken
+  @javascript @personas @browser
   Scenario: Show all orders - tab 'All orders'
     Given I am Andi
     And I am in an inventory pool with verifiable orders
