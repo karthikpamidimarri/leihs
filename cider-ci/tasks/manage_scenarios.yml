@@ -1048,14 +1048,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/inventory/inventory.feature:63 DEFAULT_BROWSER=firefox
-- name: features/manage/inventory/inventory.feature:98
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/inventory/inventory.feature:98 DEFAULT_BROWSER=firefox
 - name: features/manage/inventory/inventory.feature:104
   scripts:
     test:
