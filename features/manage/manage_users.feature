@@ -87,7 +87,7 @@ Feature: Manage users
   #  When man die Startseite setzt
   #  Then ist die Liste der Benutzer die Startseite
 
-  @javascript @personas @browser @problematic
+  @javascript @personas @browser @flapping
   Scenario: Elements of user administration
     Given I am inventory manager or lending manager
     Then I can find the user administration features in the "Manage" area under "Users"
@@ -100,7 +100,7 @@ Feature: Manage users
       | Inventory manager | inventory_managers |
     And I can open the edit view for each user
 
-  @javascript @personas @browser @problematic
+  @javascript @personas @browser @flapping
   Scenario: Displaying a user and their roles in lists
     Given I am inventory manager or lending manager
     And a user with assigned role appears in the user list

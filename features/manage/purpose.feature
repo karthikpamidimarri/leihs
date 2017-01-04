@@ -17,7 +17,7 @@ Feature: Purpose
     When I open a hand over
     Then I see the assigned purpose on each line
 
-  @javascript @personas @problematic
+  @javascript @personas @flapping
   Scenario: Places where I can edit the purpose
     When I edit an order
     Then I can edit the purpose
@@ -32,7 +32,7 @@ Feature: Purpose
     And I define a purpose
     Then only items without purpose are assigned that purpose
 
-  @javascript @browser @personas @problematic
+  @javascript @browser @personas @flapping
   Scenario: Handing over items that all have a purpose
     When I open a hand over
     And all selected items have an assigned purpose

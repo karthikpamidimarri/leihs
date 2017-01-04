@@ -9,21 +9,21 @@ Feature: Calendar view in the manage section
     When I see the calendar
     Then I see the availability of models on weekdays as well as holidays and weekends
 
-  @javascript @browser @personas @problematic
+  @javascript @browser @personas @flapping
   Scenario: Overbooking in the booking calendar while editing an order
     Given I edit an order
      And I open the booking calendar
      Then there is no limit on augmenting the quantity, thus I can overbook
      And the order can be saved
 
-  @javascript @browser @personas @problematic
+  @javascript @browser @personas @flapping
   Scenario: Overbooking in the booking calendar during a hand over
     Given I am doing a hand over
      And I open the booking calendar
      Then there is no limit on augmenting the quantity, thus I can overbook
      And the hand over can be saved
 
-  @personas @javascript @browser @problematic
+  @personas @javascript @browser @flapping
   Scenario: Unavailable time spans
     Given I am doing a hand over
      And a model is no longer available

@@ -41,7 +41,7 @@ Feature: Picking list
     And items without assigned room or shelf are shown with their available quantity for the customer and "x Location not defined"
     And the missing location information for options, are displayed with "Location not defined"
 
-  @personas @javascript @browser @problematic
+  @personas @javascript @browser @flapping
   Scenario: Content of a picking list before hand over -- unavailable items
     Given there is a hand over with at least one problematic line
     And I open the hand over

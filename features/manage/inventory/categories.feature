@@ -55,7 +55,7 @@ Feature: Categories
     And I save
     Then the categories are removed and the model is saved
 
-  @javascript @browser @personas @problematic
+  @javascript @browser @personas @flapping
   Scenario: Category search
     When I search for a category by name
     Then I find categories whose names contain the search term

@@ -106,7 +106,7 @@ manage_feature_files_paths = ['features/{login,manage,technical}/*']
 filepath = 'cider-ci/tasks/manage_scenarios.yml'
 create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, exclude_dir: 'borrow')
 
-%w(flapping problematic broken).each do |kind|
+%w(flapping broken).each do |kind|
   filepath = "cider-ci/tasks/manage_#{kind}_scenarios.yml"
   create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, tags: ["@#{kind}"])
 end
