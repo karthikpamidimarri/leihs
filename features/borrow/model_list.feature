@@ -164,7 +164,7 @@ Feature: Model list
     And the filter shows the name of the inventory pool that is left
 
   # this one is very strange; fails locally always; passes on CI sometimes
-  @javascript @personas @browser @problematic
+  @javascript @personas @browser @flapping
   Scenario: Resetting everything
     Given I am Normin
     And I am listing models
