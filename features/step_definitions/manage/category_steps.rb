@@ -40,7 +40,7 @@ Then /^the category is created with the assigned name and parent categories( and
   expect(current_path).to eq manage_categories_path(@current_inventory_pool)
   @category = Category.find_by_name "#{@new_category_name}"
   expect(@category).not_to be_nil
-  expect(ModelGroupLink.where('ancestor_id = ? AND label = ?', @parent_category.id, @label_1).count).to eq 1
+  expect(ModelGroupLink.where('parent_id = ? AND label = ?', @parent_category.id, @label_1).count).to eq 1
   if image
     expect(@category.images.count).to eq 1
   end

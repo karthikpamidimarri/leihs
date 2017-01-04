@@ -11,7 +11,7 @@ class ModelGroupLink < ActiveRecord::Base
     || where(child_id: mg1.id, parent_id: mg2.id).first
   end
 
-  def self.create_edge parent, child
+  def self.create_edge(parent, child)
     create!(parent_id: parent.id, child_id: child.id)
   end
 

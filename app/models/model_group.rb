@@ -99,7 +99,7 @@ class ModelGroup < ActiveRecord::Base
 
   def set_parent_with_label(parent, label)
     ModelGroupLink.create_edge(parent, self)
-    l = links_as_child.find_by(ancestor_id: parent.id)
+    l = links_as_child.find_by(parent_id: parent.id)
     l.update_attributes(label: label) if l
   end
 
