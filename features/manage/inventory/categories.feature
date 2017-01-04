@@ -72,7 +72,7 @@ Feature: Categories
   Scenario: Categories
     When I see the categories
 
-  @javascript @personas @browser @broken
+  @javascript @personas @browser
   Scenario: Creating categories
     When I open the category list
     And I create a new category
