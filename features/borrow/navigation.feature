@@ -30,7 +30,7 @@ Feature: Navigation
     And the navigation contains "User"
     And the navigation contains "Log out"
 
-  @personas @javascript @flapping
+  @personas @javascript
   Scenario: Navigation for validators
     Given I am Andi
     And I am listing the main categories
