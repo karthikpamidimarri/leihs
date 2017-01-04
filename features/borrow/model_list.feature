@@ -21,7 +21,7 @@ Feature: Model list
     | Manufacturer     |
     | Selection button |
 
-  @javascript @browser @personas
+  @javascript @browser @personas @flapping
   Scenario: Scrolling the model list
     Given I am Normin
     And I see a model list that can be scrolled
