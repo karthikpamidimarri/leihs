@@ -40,10 +40,8 @@ Then /^I got an information that this contract has problems$/ do
 end
 
 When /^I approve anyway$/ do
-  within('.modal') do
-    find('.dropdown-toggle').click
-    find('.dropdown-item[data-approve-anyway]').click
-  end
+  page.execute_script '$(".modal .dropdown-toggle").trigger("mouseover")'
+  find('.modal .dropdown-item[data-approve-anyway]').click
   step 'the modal is closed'
 end
 

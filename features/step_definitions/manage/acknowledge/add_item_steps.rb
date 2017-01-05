@@ -103,8 +103,10 @@ And /^I search again for the same model$/ do
 end
 
 Then (/^the model's availability has changed$/) do
-  @changed_aval = find('.row a', match: :prefer_exact, text: @model.name).find('div.col1of4:nth-child(2) > div:nth-child(1)').text
-  expect(@changed_aval.slice(0)).not_to eq @init_aval.slice(0)
+  wait_until(3) do
+    @changed_aval = find('.row a', match: :prefer_exact, text: @model.name).find('div.col1of4:nth-child(2) > div:nth-child(1)').text
+    @changed_aval.slice(0) != @init_aval.slice(0)
+  end
 end
 
 When(/^I start searching some model for adding it$/) do

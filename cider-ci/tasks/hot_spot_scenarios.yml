@@ -1,122 +1,66 @@
 ---
 tasks:
-- name: engines/procurement/spec/features/periods_and_states.feature:4
+- name: features/manage/delegation.feature:160
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:4
-- name: engines/procurement/spec/features/periods_and_states.feature:16
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:160 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:178
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:16
-- name: engines/procurement/spec/features/periods_and_states.feature:25
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:178 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:196
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:25
-- name: engines/procurement/spec/features/periods_and_states.feature:39
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:196 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:212
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:39
-- name: engines/procurement/spec/features/periods_and_states.feature:50
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:212 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:249
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:50
-- name: engines/procurement/spec/features/periods_and_states.feature:59
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:249 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:259
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:59
-- name: engines/procurement/spec/features/periods_and_states.feature:67
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:259 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:266
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:67
-- name: engines/procurement/spec/features/periods_and_states.feature:86
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:266 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:273
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:86
-- name: engines/procurement/spec/features/periods_and_states.feature:100
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:100
-- name: engines/procurement/spec/features/periods_and_states.feature:112
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:112
-- name: engines/procurement/spec/features/periods_and_states.feature:127
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:127
-- name: engines/procurement/spec/features/periods_and_states.feature:142
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:142
-- name: engines/procurement/spec/features/periods_and_states.feature:159
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:159
-- name: engines/procurement/spec/features/periods_and_states.feature:172
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:172
-- name: engines/procurement/spec/features/periods_and_states.feature:185
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:185
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:273 DEFAULT_BROWSER=firefox

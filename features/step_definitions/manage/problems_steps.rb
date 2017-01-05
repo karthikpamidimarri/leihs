@@ -24,7 +24,9 @@ Given /^a model is no longer available$/ do
               end
     reservation = @entity.item_lines.first
     @model = reservation.model
-    @initial_quantity = @contract.reservations.where(model_id: @model.id).count
+    puts @entity
+    puts @entity.reservations
+    @initial_quantity = @entity.reservations.where(model_id: @model.id).count
     @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids) || 0
     step 'I add so many reservations that I break the maximal quantity of a model'
   else

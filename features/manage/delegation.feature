@@ -156,7 +156,7 @@ Feature: Delegation
     And I save
     Then no orders can be created for this delegation in the current inventory pool
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Given I am Pius
     And I open an order
@@ -174,7 +174,7 @@ Feature: Delegation
     Then I see the delegation's name
     And I see the contact person
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Definition of the contact person when creating an order
     Given I am Julie
     When I create an order for a delegation
@@ -192,10 +192,10 @@ Feature: Delegation
     Then the order shows the name of the user
     And I don't see any contact person
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Changing the delegation during hand over
     Given I am Pius
-    And there is a hand over for a delegation
+    And there is a hand over for a delegation with assigned items
     And I open this hand over
     When I change the delegation
     And I confirm the user change
@@ -208,7 +208,7 @@ Feature: Delegation
     When I try to change the delegation
     Then I can choose only those delegations that have access to this inventory pool
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Changing contact person during hand over
     Given I am Pius
     And there is a hand over for a delegation with assigned items
@@ -245,7 +245,7 @@ Feature: Delegation
     And the delegation is saved as borrower
     And I am saved as contact person
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Changing delegation in an order
     Given I am Pius
     And I open an order
@@ -255,21 +255,21 @@ Feature: Delegation
     Then the hand over goes to the new delegation
     And the newly selected contact person is saved
 
-  @javascript @personas @flapping
+  @javascript @personas
   Scenario: Which delegations are shown when changing delegation in an order
     Given I am Pius
     And I open an order
     When I try to change the delegation
     Then I can choose only those delegations that have access to this inventory pool
 
-  @javascript @personas @browser @flapping
+  @javascript @personas @browser
   Scenario: Changing delegation - only one contact person field
     Given I am Pius
     And I am editing a delegation's order
     When I change the delegation
     Then I see exactly one contact person field
 
-  @javascript @personas @flapping
+  @javascript @personas
   Scenario: Changing delegation - contact person is required
     Given I am Pius
     And I open an order

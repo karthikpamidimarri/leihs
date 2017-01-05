@@ -1,4 +1,5 @@
 When(/^I open a hand over with an unassigned item line$/) do
+  @event = 'hand_over'
   @customer = FactoryGirl.create(:user)
   FactoryGirl.create(:access_right,
                      user: @customer,

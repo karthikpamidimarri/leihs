@@ -40,6 +40,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/acknowledge/add_item.feature:27 DEFAULT_BROWSER=firefox
+- name: features/manage/acknowledge/add_item.feature:35
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/acknowledge/add_item.feature:35 DEFAULT_BROWSER=firefox
 - name: features/manage/acknowledge/add_item.feature:45
   scripts:
     test:
@@ -120,6 +128,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/acknowledge/quick_approve.feature:11 DEFAULT_BROWSER=firefox
+- name: features/manage/acknowledge/quick_approve.feature:18
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/acknowledge/quick_approve.feature:18 DEFAULT_BROWSER=firefox
 - name: features/manage/acknowledge/reject.feature:12
   scripts:
     test:
@@ -224,6 +240,30 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/calendar.feature:8 DEFAULT_BROWSER=firefox
+- name: features/manage/calendar.feature:13
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/calendar.feature:13 DEFAULT_BROWSER=firefox
+- name: features/manage/calendar.feature:20
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/calendar.feature:20 DEFAULT_BROWSER=firefox
+- name: features/manage/calendar.feature:27
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/calendar.feature:27 DEFAULT_BROWSER=firefox
 - name: features/manage/change_language.feature:9
   scripts:
     test:
@@ -360,6 +400,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:152 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:160
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:160 DEFAULT_BROWSER=firefox
 - name: features/manage/delegation.feature:170
   scripts:
     test:
@@ -368,6 +416,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:170 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:178
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:178 DEFAULT_BROWSER=firefox
 - name: features/manage/delegation.feature:188
   scripts:
     test:
@@ -376,6 +432,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:188 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:196
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:196 DEFAULT_BROWSER=firefox
 - name: features/manage/delegation.feature:205
   scripts:
     test:
@@ -384,6 +448,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:205 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:212
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:212 DEFAULT_BROWSER=firefox
 - name: features/manage/delegation.feature:220
   scripts:
     test:
@@ -400,6 +472,38 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:227 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:249
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:249 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:259
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:259 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:266
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:266 DEFAULT_BROWSER=firefox
+- name: features/manage/delegation.feature:273
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/delegation.feature:273 DEFAULT_BROWSER=firefox
 - name: features/manage/displaying_problems.feature:8
   scripts:
     test:

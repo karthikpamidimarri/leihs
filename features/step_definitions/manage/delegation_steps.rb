@@ -196,11 +196,23 @@ Given(/^I open this hand over$/) do
 end
 
 When /^I select all reservations selecting all linegroups$/ do
-  all('input[data-select-lines]').each {|el| el.click unless el.checked?}
+  if page.has_content? _('Edit Order')
+    line_ids = all('.line[data-ids]').map { |l| l['data-ids'] }
+    line_ids.each do |ids|
+      el = find(".line[data-ids='#{ids}'] input[data-select-line]")
+      el.click unless el.checked?
+    end
+  else # hand over
+    line_ids = all('.line[data-id]').map { |l| l['data-id'] }
+    line_ids.each do |id|
+      el = find(".line[data-id='#{id}'] input[data-select-line]")
+      el.click unless el.checked?
+    end
+  end
 end
 
 When(/^I change the delegation$/) do
-  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
+  expect(has_selector?('input[data-select-line]', match: :first)).to be true
   step 'I select all reservations selecting all linegroups'
   multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
   multibutton.find('.dropdown-toggle').click
@@ -210,15 +222,12 @@ When(/^I change the delegation$/) do
   @old_delegation = @contract.user
   @new_delegation = @current_inventory_pool.users.find {|u| u.delegation? and u.firstname != @old_delegation.firstname}
   find('input#user-id', match: :first).set @new_delegation.name
-  find('.ui-menu-item a', match: :first).click
+  find('.ui-menu-item a', match: :prefer_exact, text: @new_delegation.name).click
   @contract.reservations.reload.all? {|c| c.user == @new_delegation }
 end
 
 When(/^I try to change the delegation$/) do
-  all('input[data-select-lines]', minimum: 1).each_with_index do |line, i|
-    el = all('input[data-select-lines]')[i]
-    el.click unless el.checked?
-  end
+  step 'I select all reservations selecting all linegroups'
   multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
   multibutton.find('.dropdown-toggle').click
   find('#swap-user', match: :first).click
