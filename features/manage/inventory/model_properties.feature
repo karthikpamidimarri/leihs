@@ -21,7 +21,7 @@ Feature: Model properties
   And I save the model
   Then this model's properties are saved in the order they were given
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Deleting properties
   Given I edit a model that already has properties
   When I delete one or more existing properties

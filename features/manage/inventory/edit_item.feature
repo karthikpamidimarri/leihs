@@ -3,7 +3,7 @@ Feature: Editing an item
   Background:
     Given I am Matti
 
-  @javascript @personas
+  @javascript @personas @flapping
   Scenario: Order of the fields when editing an item
     Given I edit an item that belongs to the current inventory pool
     # TODO: Remove web_steps.rb

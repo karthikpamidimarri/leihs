@@ -7,7 +7,7 @@ Feature: Sign Contract
   Background:
     Given I am Pius
 
-  @javascript @personas @broken
+  @javascript @personas @flapping
   Scenario: Delete a single line during the hand over
     When I open a hand over
     And I delete a line
@@ -20,7 +20,7 @@ Feature: Sign Contract
     And I delete the seleted reservations
     Then these seleted reservations are deleted
 
-  @javascript @personas @browser
+  @javascript @personas @browser @flapping
   Scenario: Delete reservations which changes other reservations availability
     When I open a hand over
     And I delete all reservations of a model thats availability is blocked by these reservations

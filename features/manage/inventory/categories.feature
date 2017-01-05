@@ -21,7 +21,9 @@ Feature: Categories
     And the first level is displayed on top
     And I can expand and collapse subcategories
 
-  @javascript @personas
+  # sometimes there is an error that association 'models' is not
+  # defined for category, but it is via inheritence (ModelGroup). WTF?
+  @javascript @personas @flapping
   Scenario: Edit categories
     When I edit a category
     And I change the name and the parents
