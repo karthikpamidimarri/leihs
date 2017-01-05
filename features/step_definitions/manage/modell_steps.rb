@@ -145,7 +145,7 @@ end
 Then(/^the changed allocations are saved$/) do
   find('#flash')
   model_group_ids = @model.reload.partitions.map(&:group_id)
-  expect(model_group_ids.sort).to eq @groups.map(&:id)
+  expect(model_group_ids).to match_array @groups.map(&:id)
 end
 
 Then /^the new model is created and can be found in the list of unused models$/ do
