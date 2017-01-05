@@ -15,10 +15,8 @@ When(/^I open a contract for acknowledgement( with more then one line)?(, whose 
 end
 
 When(/^I open the booking calendar for this line$/) do
-  el = @line_element || find(@line_element_css)
-  within el do
-    find('.line-actions [data-edit-lines]').click
-  end
+  @line_element ||= find(@line_element_css)
+  @line_element.find('.line-actions [data-edit-lines]').click
   step 'I see the booking calendar'
 end
 
@@ -48,7 +46,11 @@ When(/^I change a contract reservations time range$/) do
     else
       @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).first.reservations.first
     end
-  @line_element = all(".line[data-ids*='#{@line.id}']").first || all(".line[data-id='#{@line.id}']").first
+  @line_element = begin
+                    find(".line[data-ids*='#{@line.id}']", match: :first)
+                  rescue
+                    find(".line[data-id='#{@line.id}']", match: :first)
+                  end
   step 'I open the booking calendar for this line'
   @new_start_date =
     if @line.start_date + 1.day < Time.zone.today
