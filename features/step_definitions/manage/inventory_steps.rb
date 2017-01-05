@@ -190,9 +190,9 @@ When /^the item is in stock and my department is responsible for it$/ do
 end
 
 When /^the item is not in stock and another department is responsible for it$/ do
-  all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ''}.select_option
   find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
   @item = @current_inventory_pool.own_items.items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
+  all("select[name='responsible_inventory_pool_id'] option").detect { |o| o.value == @item.inventory_pool.id }.select_option
   step 'I search for "%s"' % @item.inventory_code
   step 'expand the corresponding model'
   @item_line, @item = fetch_item_line_and_item

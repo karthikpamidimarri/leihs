@@ -212,7 +212,7 @@ Feature: Inventory
       | Number available (now)   |
       | Number available (total) |
 
-  @javascript @personas @browser @broken
+  @javascript @personas @browser
   Scenario: Look of an item line
     When I view the tab "Models"
     And the item is in stock and my department is responsible for it
