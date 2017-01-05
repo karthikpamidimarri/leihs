@@ -120,7 +120,7 @@ Feature: Manage users
       |Phone number|
       |Role|
 
-  @javascript @personas @browser @broken
+  @javascript @personas @browser
   Scenario: Displaying a user in a list with their assigned roles and suspension status
     Given I am inventory manager or lending manager
     And a suspended user with assigned role appears in the user list

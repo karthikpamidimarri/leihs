@@ -147,7 +147,12 @@ Given /^a (.*?)user (with|without) assigned role appears in the user list$/ do |
   user = User.where(login: 'normin').first
   case suspended
     when 'suspended '
-      user.access_rights.active.first.update_attributes(suspended_until: Date.today + 1.year, suspended_reason: 'suspended reason')
+      user
+        .access_rights
+        .where(inventory_pool: @current_inventory_pool)
+        .active
+        .first
+        .update_attributes(suspended_until: Date.today + 1.year, suspended_reason: 'suspended reason')
   end
   case with_or_without
     when 'with'
@@ -166,7 +171,7 @@ end
 
 Then /^I see the following information, in order:$/ do |table|
   user = User.find @el.find('[data-id]')['data-id']
-  access_right = user.access_right_for(@inventory_pool)
+  access_right = user.access_right_for(@current_inventory_pool)
 
   strings = table.hashes.map do |x|
     case x[:attr]
