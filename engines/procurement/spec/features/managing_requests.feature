@@ -332,7 +332,7 @@ Feature: section Managing Requests
     Then I see a success message
     And the changes are saved successfully to the database
 
-  @managing_requests
+  @managing_requests @flapping
   Scenario Outline: Priority values
     Given I am <username>
     When I want to create a new request
