@@ -347,7 +347,9 @@ module CommonSteps
   step 'I move a request to the future budget period' do
     within all('.request', minimum: 1).last do
       @request = Procurement::Request.find current_scope['data-request_id']
-      link_on_dropdown(@future_budget_period.to_s).click
+      wait_until 3 do
+        link_on_dropdown(@future_budget_period.to_s).click rescue nil
+      end
     end
 
     @changes = {
@@ -368,7 +370,9 @@ module CommonSteps
                           categories.first
                         end
 
-      link_on_dropdown(@other_category.name).click
+      wait_until 3 do
+        link_on_dropdown(@other_category.name).click rescue nil
+      end
     end
 
     @changes = {
