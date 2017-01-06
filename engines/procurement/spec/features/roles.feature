@@ -49,7 +49,7 @@ Feature: Description of roles
     And I can not add categories
     And I can see all budget limits
 
-    @roles @flapping
+    @roles
     Scenario: Role Inspector and Requester
       Given I am Barbara
       And the basic dataset is ready
@@ -63,7 +63,7 @@ Feature: Description of roles
         | inspector's priority |
       And I can export the data
 
-    @roles @flapping
+    @roles
     Scenario: Role Inspector and Requester
       Given I am Barbara
       And the basic dataset is ready
@@ -71,7 +71,7 @@ Feature: Description of roles
       And I can move requests of my own category to other budget periods
       And I can move requests of my own category to other categories
 
-    @roles @flapping
+    @roles
     Scenario: Role Inspector and Requester
       Given I am Barbara
       And the basic dataset is ready
@@ -79,7 +79,7 @@ Feature: Description of roles
       And I can create a request for myself
       And I can create requests for my category for another person
 
-    @roles @flapping
+    @roles
     Scenario: Role Inspector and Requester
       Given I am Barbara
       And the basic dataset is ready

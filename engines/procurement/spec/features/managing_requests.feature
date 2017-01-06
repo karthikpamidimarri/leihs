@@ -50,7 +50,7 @@ Feature: section Managing Requests
     And I navigate to the requests overview page
     Then I see the default picture
 
-  @managing_requests
+  @managing_requests @flapping
   Scenario: Using the filters as requester only
     Given I am Roger
     And several requests created by myself exist
@@ -161,7 +161,7 @@ Feature: section Managing Requests
       | Barbara  |
       | Roger    |
 
-  @managing_requests
+  @managing_requests @flapping
   Scenario: Creating a request by choosing a template article inside the request form
     Given I am Barbara
     And several categories exist
