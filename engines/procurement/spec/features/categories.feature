@@ -1,6 +1,6 @@
 Feature: Procurement Categories
 
-  @categories @flapping
+  @categories
   Scenario: Creating the main categories
     Given I am Hans Ueli
     And a budget period exist
