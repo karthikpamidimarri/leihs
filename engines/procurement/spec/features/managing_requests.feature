@@ -126,7 +126,7 @@ Feature: section Managing Requests
       | Barbara  |
       | Roger    |
 
-  @managing_requests
+  @managing_requests @flapping
   Scenario Outline: Creating a request through a budget period selecting a sub category
     Given I am <username>
     And several categories exist
@@ -237,7 +237,7 @@ Feature: section Managing Requests
       | Barbara  |
       | Roger    |
 
-  @managing_requests
+  @managing_requests @flapping
   Scenario Outline: sorting requests
     Given I am <username>
     And several requests created by myself exist

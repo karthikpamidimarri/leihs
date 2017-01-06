@@ -7,7 +7,7 @@ jobs:
     description: |
       Run procurement flapping scenarios
 
-    priority: -1
+    priority: 0
 
     run_when:
       branch name matches master or procurement:
@@ -22,7 +22,7 @@ jobs:
           g2016: true
         load: 1.5
         max_trials: 10
-        eager_trials: 10
+        eager_trials: 2
         include:
           - cider-ci/task_components/database.yml
 
