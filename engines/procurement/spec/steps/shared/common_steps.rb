@@ -112,9 +112,11 @@ module CommonSteps
     end
   end
 
+  # rubocop:disable Lint/Debugger
   step 'I pry' do
     binding.pry
   end
+  # rubocop:enable Lint/Debugger
 
   step 'for each request I see the following information' do |table|
     step 'I expand all the sub categories'
