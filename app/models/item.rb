@@ -140,7 +140,7 @@ class Item < ActiveRecord::Base
 
     items = items.unborrowable if params[:unborrowable]
     if params[:category_id]
-      model_ids = if params[:category_id] == '-1'
+      model_ids = if params[:category_id] == '00000000-0000-0000-0000-000000000000'
                     Model.where.not(id: Model.joins(:categories))
                   else
                     Model

@@ -346,7 +346,7 @@ class Model < ActiveRecord::Base
     end
 
     unless params[:category_id].blank?
-      if params[:category_id] == '-1'
+      if params[:category_id] == '00000000-0000-0000-0000-000000000000'
         models = models.where.not(id: Model.joins(:categories))
       else
         models = \
