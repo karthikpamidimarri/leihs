@@ -112,6 +112,10 @@ module CommonSteps
     end
   end
 
+  step 'I pry' do
+    binding.pry
+  end
+
   step 'for each request I see the following information' do |table|
     step 'I expand all the sub categories'
     elements = all('[data-request_id]', minimum: 1)
