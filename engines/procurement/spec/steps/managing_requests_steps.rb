@@ -171,7 +171,9 @@ steps_for :managing_requests do
     @template = @category.templates.sample
     within '.panel-success > .panel-body' do
       within '.panel-info > .panel-body', text: @category.name do
-        find('.list-group-item', text: @template.article_name).click
+        wait_until 3 do
+          find('.list-group-item', text: @template.article_name).click rescue nil
+        end
       end
     end
   end
