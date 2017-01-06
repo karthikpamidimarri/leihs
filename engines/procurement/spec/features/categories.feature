@@ -1,6 +1,6 @@
 Feature: Procurement Categories
 
-  @categories @flapping
+  @categories
   Scenario: Creating the main categories
     Given I am Hans Ueli
     And a budget period exist
@@ -17,7 +17,7 @@ Feature: Procurement Categories
     And the new main category appears in the list
     And the new main category was created in the database
 
-  @categories @flapping
+  @categories
   Scenario: Creating the main categories
     Given I am Hans Ueli
     And a budget period exist
