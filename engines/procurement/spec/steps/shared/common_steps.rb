@@ -389,7 +389,9 @@ module CommonSteps
     within '#filter_target' do
       within '.panel-success .panel-body' do
         within '.row .h4', text: @category.name do
-          find('i.fa-plus-circle').click
+          wait_until 3 do
+            find('i.fa-plus-circle').click rescue nil
+          end
         end
       end
     end
