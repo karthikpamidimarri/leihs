@@ -20,12 +20,19 @@ Given /^a model is no longer available$/ do
     @entity = if @contract
                 @contract
               else
-                @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
+                item = FactoryGirl.create(:item,
+                                          inventory_pool: @current_inventory_pool)
+                reservation = FactoryGirl.create(:item_line,
+                                                 user: @customer,
+                                                 item: item,
+                                                 model: item.model,
+                                                 inventory_pool: @current_inventory_pool,
+                                                 status: :approved)
+                @entity = reservation.contract
               end
-    reservation = @entity.item_lines.first
+    reservation ||= @contract.item_lines.first
+    expect(reservation).to be
     @model = reservation.model
-    puts @entity
-    puts @entity.reservations
     @initial_quantity = @entity.reservations.where(model_id: @model.id).count
     @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids) || 0
     step 'I add so many reservations that I break the maximal quantity of a model'
@@ -104,7 +111,7 @@ end
 Given /^one item is not borrowable$/ do
   case @event
     when 'hand_over'
-      @item = @current_inventory_pool.items.in_stock.unborrowable.first
+      @item = FactoryGirl.create(:item, is_borrowable: false, inventory_pool: @current_inventory_pool)
       step 'I add an item to the hand over'
       @line_id = Reservation.where(item_id: @item.id).first.id
       find(".line[data-id='#{@line_id}']", text: @item.model.name).find('[data-assign-item][disabled]')
@@ -118,19 +125,33 @@ end
 
 Given /^I take back a(n)?( late)? item$/ do |grammar, is_late|
   @event = 'take_back'
-  overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.reservations.any? {|l| l.is_a? ItemLine}}
-  overdued_take_backs = overdued_take_backs.select { |x| x.date < Date.today } if is_late
-  overdued_take_back = overdued_take_backs.sample
-  @line_id = overdued_take_back.reservations.where(type: 'ItemLine').first.id
-  visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
+  user = FactoryGirl.create(:user)
+  FactoryGirl.create(:access_right, inventory_pool: @current_inventory_pool, user: user)
+  item = FactoryGirl.create(:item)
+  item_line = FactoryGirl.create(:item_line,
+                                 item: item,
+                                 model: item.model,
+                                 contract: FactoryGirl.create(:signed_contract,
+                                                              inventory_pool: @current_inventory_pool,
+                                                              user: user),
+                                 user: user,
+                                 status: :signed,
+                                 inventory_pool: @current_inventory_pool)
+  if is_late
+    item_line.update_attributes(start_date: Date.today - 2,
+                                end_date: Date.today - 1)
+  end
+  @line_id = item_line.id
+  expect(@line_id).to be
+  visit manage_take_back_path(@current_inventory_pool, item_line.user)
   expect(has_selector?(".line[data-id='#{@line_id}']")).to be true
 end
 
 def open_inspection_for_line(line_id)
-  within(".line[data-id='#{line_id}'] .multibutton") do
-    find('.dropdown-toggle').click
-    find('.dropdown-holder .dropdown-item', text: _('Inspect')).click
-  end
+  expect(line_id).not_to be_blank
+  multibutton_css = ".line[data-id='#{line_id}'] .multibutton"
+  page.execute_script %Q( $("#{multibutton_css} .dropdown-toggle").trigger("mouseover") )
+  find("#{multibutton_css} .dropdown-holder .dropdown-item", text: _('Inspect')).click
   find('.modal')
 end
 
@@ -146,18 +167,25 @@ Then /^I mark the item as (.*)$/ do |arg1|
     else
       raise
   end
-  find(".modal button[type='submit']").click
+  wait_until do
+    first(".modal button[type='submit']").try(:click)
+    first('.modal').nil?
+  end
 end
 
 When /^one item is defective$/ do
   case @event
     when 'hand_over'
-      @item = @current_inventory_pool.items.in_stock.broken.first
+      @item = FactoryGirl.create(:item, is_broken: true, inventory_pool: @current_inventory_pool)
       step 'I add an item to the hand over'
       sleep 1
-      @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, 'ancestor::div[@data-id]')['data-id']
+      wait_until do
+        @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, 'ancestor::div[@data-id]')['data-id']
+      end
     when 'take_back'
-      @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
+      wait_until do
+        @line_id = find(".line[data-line-type='item_line']", match: :first)['data-id']
+      end
       step 'I mark the item as defective'
     else
       raise
@@ -167,11 +195,15 @@ end
 Given /^one item is incomplete$/ do
   case @event
     when 'hand_over'
-      @item = @current_inventory_pool.items.in_stock.incomplete.first
+      @item = FactoryGirl.create(:item, is_incomplete: true, inventory_pool: @current_inventory_pool)
       step 'I add an item to the hand over'
-      @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, 'ancestor::div[@data-id]')['data-id']
+      wait_until do
+        @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, 'ancestor::div[@data-id]')['data-id']
+      end
     when 'take_back'
-      @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
+      wait_until do
+        @line_id = find(".line[data-line-type='item_line']", match: :first)['data-id']
+      end
       step 'I mark the item as incomplete'
     else
       raise
@@ -193,4 +225,17 @@ Then /^the affected item's line shows the item's problems$/ do
   hover_for_tooltip target
   @problems = []
   @problems << find('.tooltipster-default .tooltipster-content', text: /\w/).text
+end
+
+Given(/^test data setup XXX$/) do
+  @event = 'hand_over'
+  @customer = FactoryGirl.create(:user)
+  FactoryGirl.create(:access_right,
+                     inventory_pool: @current_inventory_pool,
+                     user: @customer,
+                     role: :customer)
+end
+
+Given(/^I open a hand over XXX$/) do
+  visit manage_hand_over_path(@current_inventory_pool, @customer)
 end
