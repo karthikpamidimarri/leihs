@@ -50,7 +50,7 @@ Feature: section Managing Requests
     And I navigate to the requests overview page
     Then I see the default picture
 
-  @managing_requests @flapping
+  @managing_requests
   Scenario: Using the filters as requester only
     Given I am Roger
     And several requests created by myself exist
@@ -425,7 +425,7 @@ Feature: section Managing Requests
       | Roger    |
       | Hans Ueli    |
 
-  @managing_requests @flapping
+  @managing_requests
   Scenario: Additional Fields shown to requester only after budget period has ended
     Given I am Roger
     And a request with following data exist
