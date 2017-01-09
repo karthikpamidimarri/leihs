@@ -93,7 +93,7 @@ Feature: Edit order
     When I uncheck the filter "To be verified"
     Then I see orders placed by users in groups requiring verification
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @unstable
   Scenario: Reset order that is already approved
     Given I am Andi
     And I am in an inventory pool with verifiable orders

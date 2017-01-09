@@ -47,7 +47,7 @@ ENGINES.each do |engine|
   create_feature_tasks(filepath, engine_feature_files)
 end
 
-EXCLUDE_TAGS = %w(@upcoming @generating_personas @manual @broken @v4stable @flapping)
+EXCLUDE_TAGS = %w(@upcoming @generating_personas @manual @broken @v4stable @flapping @unstable)
 
 def create_scenario_tasks(filepath, feature_files_paths, test_with, tags: nil, exclude_dir: nil)
   File.open(filepath,'w') do |f|
@@ -106,7 +106,7 @@ manage_feature_files_paths = ['features/{login,manage,technical}/*']
 filepath = 'cider-ci/tasks/manage_scenarios.yml'
 create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, exclude_dir: 'borrow')
 
-%w(flapping broken).each do |kind|
+%w(flapping broken unstable).each do |kind|
   filepath = "cider-ci/tasks/manage_#{kind}_scenarios.yml"
   create_scenario_tasks(filepath, manage_feature_files_paths, :cucumber, tags: ["@#{kind}"])
 end
@@ -118,7 +118,7 @@ borrow_feature_files_paths = ['features/borrow/*']
 filepath = 'cider-ci/tasks/borrow_scenarios.yml'
 create_scenario_tasks(filepath, borrow_feature_files_paths, :cucumber)
 
-%w(flapping broken).each do |kind|
+%w(flapping broken unstable).each do |kind|
   filepath = "cider-ci/tasks/borrow_#{kind}_scenarios.yml"
   create_scenario_tasks(filepath, borrow_feature_files_paths, :cucumber, tags: ["@#{kind}"])
 end

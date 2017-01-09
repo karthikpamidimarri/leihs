@@ -17,12 +17,12 @@ Feature: Purpose
     When I open a hand over
     Then I see the assigned purpose on each line
 
-  @javascript @personas @flapping
+  @javascript @personas @unstable
   Scenario: Places where I can edit the purpose
     When I edit an order
     Then I can edit the purpose
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @unstable
   Scenario: Handing over items will copy the existing purposes to any blank purposes
     When I open a hand over
      And I click an inventory code input field of an item line
@@ -56,7 +56,7 @@ Feature: Purpose
     But I do not assign a purpose
     Then I can finish the hand over
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @unstable
   Scenario: Hand overs with a few items that don't have a purpose are possible
     When I open a hand over
     And I click an inventory code input field of an item line

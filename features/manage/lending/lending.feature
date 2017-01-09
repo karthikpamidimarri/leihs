@@ -74,7 +74,7 @@ Feature: Lending
     And I click on "Hand Over"
     Then there are inventory codes for item and license in the contract
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @broken
   Scenario: Inspection during take back
     Given I take back an item
     Then I can inspect each item
@@ -87,7 +87,7 @@ Feature: Lending
     And I save the inspection
     Then the item is saved with the currently set states
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @unstable
   Scenario: Automatic printing during hand over
     When I open a hand over
     Then the print dialog opens automatically
