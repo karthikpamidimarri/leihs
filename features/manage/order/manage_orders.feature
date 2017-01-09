@@ -58,7 +58,7 @@ Feature: Edit order
     And I can edit the order
     And I cannot hand over orders
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Displaying the tab of approved orders
     Given I am Andi
     And I am in an inventory pool with verifiable orders

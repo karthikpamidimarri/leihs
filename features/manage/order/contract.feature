@@ -49,7 +49,7 @@ Feature: Contract
     Then I see list 1 with the title "Returned Items"
     And this list contains borrowed and returned items
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Purposes
     Given I open a contract during hand over
     Then I see a comma-separated list of purposes
@@ -65,7 +65,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then I see a title in the format "Contract No. #"
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: Position of the barcode
     Given I open a contract during hand over
     Then I see the barcode in the top left
@@ -102,7 +102,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then the lender is shown next to the borrower
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas
   Scenario: List of borrowed items
     Given I open a contract during hand over
     When there are unreturned items
