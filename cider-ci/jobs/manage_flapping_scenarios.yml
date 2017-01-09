@@ -21,8 +21,8 @@ jobs:
         traits:
           g2016: true
         load: 2.0
-        max_trials: 5
-        eager_trials: 1
+        max_trials: 25
+        eager_trials: 2
         include:
           - cider-ci/task_components/database.yml
 

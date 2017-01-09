@@ -35,7 +35,7 @@ Feature: Edit a hand over
     And the user in this hand over is suspended
     Then I see the note 'Suspended!' next to their name
 
-  @javascript @browser @personas @flapping
+  @javascript @browser @personas @unstable
   Scenario: System feedback when adding an option
     Given I open a hand over
     When I add an option
@@ -60,7 +60,7 @@ Feature: Edit a hand over
     Then a hand over dialog appears
     And the contract note field in this dialog is already filled in with the default note
 
-  @javascript @personas @flapping
+  @javascript @personas
   Scenario: Contract note
     When I open a hand over with at least one assigned item
     And I hand over the items

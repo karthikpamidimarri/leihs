@@ -1,13 +1,13 @@
 jobs:
 
-  manage_broken_scenarios:
+  manage_unstable_scenarios:
 
-    name: 'Manage: Broken Scenarios'
+    name: 'Manage: Unstable Scenarios'
 
     description: |
-      Run Manage flapping scenarios
+      Run Manage unstable scenarios
 
-    priority: -10
+    priority: -5
 
     run_when:
       branch name matches master or manage:
@@ -18,7 +18,7 @@ jobs:
     context:
 
       task_defaults:
-        load: 1.5
+        load: 2.0
         max_trials: 25
         eager_trials: 1
         include:
@@ -26,4 +26,4 @@ jobs:
 
       include:
         - cider-ci/shared/main_context.yml
-        - cider-ci/tasks/manage_broken_scenarios.yml
+        - cider-ci/tasks/manage_unstable_scenarios.yml
