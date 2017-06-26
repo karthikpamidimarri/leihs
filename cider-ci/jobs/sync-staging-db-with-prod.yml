@@ -1,13 +1,7 @@
 jobs:
-  sync-test-db-with-prod:
-    name: Sync test DB with prod
+  sync-staging-db-with-prod:
+    name: Sync staging DB with prod
     priority: 2
-    run_when:
-      nightly:
-        type: cron
-        value: '0 3 * * *'
-        branch_include_match: ^master$
-        rerun: true
     context:
       tasks:
         sync:
@@ -15,7 +9,7 @@ jobs:
             submodules:
               include_match: ^.*$
           exclusive_global_resources:
-            "leihs-v4-test.zhdk.ch": true
+            "zhdk-leihs-staging.ruby.zhdk.ch": true
           traits:
             g2016: true
           scripts:
@@ -35,7 +29,8 @@ jobs:
               body: |
                 set -eux
                 cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook db-restore_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/test-hosts
+                  -i ../zhdk-inventory/staging-hosts --limit zhdk-leihs-staging
 

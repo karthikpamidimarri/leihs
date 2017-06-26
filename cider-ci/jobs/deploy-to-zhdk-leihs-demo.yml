@@ -1,0 +1,34 @@
+jobs:
+  deploy-to-zhdk-leihs-demo:
+    name: Deploy to zhdk-leihs-demo.ruby.zhdk.ch
+    run_when:
+      nightly:
+        type: cron
+        value: '0 3 * * *'
+        branch_include_match: ^master$
+        rerun: true
+      'on personal integration branch':
+        type: branch
+        include_match: ^[a-z]{2}_master$
+        exclude_match: '^.*no-ci.*$'
+    priority: 2
+    context:
+      tasks:
+        deploy:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "zhdk-leihs-demo.ruby.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              timeout: 30 Minutes
+              body: |
+                set -eux
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                ansible-playbook demo-deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/demo-hosts

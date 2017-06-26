@@ -1,0 +1,28 @@
+jobs:
+  deploy-to-zhdk-leihs-test:
+    name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
+    priority: 2
+    run_when:
+      'on personal integration branch':
+        type: branch
+        include_match: ^[a-z]{2}_master$
+        exclude_match: '^.*no-ci.*$'
+    context:
+      tasks:
+        deploy:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "zhdk-leihs-test.ruby.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              body: |
+                set -eux
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                ansible-playbook deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/test-hosts
